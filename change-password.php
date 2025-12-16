@@ -28,7 +28,8 @@ if (isset($_GET['reset'])) {
         $msg = "<div class='alert alert-error'>El enlace es inválido o ya fue utilizado.</div>";
     }
 } else {
-    header("Location: index.php");
+    header("Location: index.html");
+    exit();
 }
 ?>
 
