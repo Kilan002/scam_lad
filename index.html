@@ -5,77 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scam LAD - Bienvenida</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-
-        body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f4;
-            color: #222;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Botón de inicio de sesión */
-        .login-btn {
-            background-color: #c00000;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-left: 20px;
-            text-decoration: none;
-        }
-
-        .login-btn:hover {
-            background-color: #a00000;
-        }
-
-        main {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 20px;
-        }
-
-        section {
-            background-color: #fff;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 10px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
-        }
-
-        section h2 {
-            color: #c00000;
-            border-bottom: 2px solid #c00000;
-            padding-bottom: 8px;
-        }
-
-        section p, section ul {
-            line-height: 1.6;
-        }
-
-        footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #000;
-            color: #fff;
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
     <header>
         <img src="scamladlogo.jpeg" height="100" alt="Logo Scam LAD">
-
-        <h1>Bienvenido al sistema de cámaras de seguridad inteligente</h1>
-
+        <div>
+            <h1>Bienvenido al sistema de cámaras de seguridad inteligente</h1>
+        </div>
         <!-- Botón de inicio de sesión -->
         <a href="login.php" class="login-btn">Iniciar Sesión</a>
     </header>
@@ -123,271 +61,226 @@
     </main>
 
     <div class="link">
-            <p>¿Quieres saber mas? <a href="about.html">Haz click aquí</a></p>
-        </div>
+        <p>¿Quieres saber mas? <a href="about.html">Haz click aquí</a></p>
+    </div>
 
     <footer>
-        <p>© 2025 Scam LAD | Proyecto Integrador - Sistema de Cámaras de Seguridad</p> <a href="contact.html">Contactanos</a>
+        <p>© 2025 Scam LAD | Proyecto Integrador - Sistema de Cámaras de Seguridad</p> 
+        <a href="contact.html">Contáctanos</a>
     </footer>
 
-</body>
-<style>
-/* Estilos Flotantes */
-.chatbot-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #c00000;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 30px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-}
-.chatbot-window {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 350px;
-    height: 450px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    display: none; /* Inicialmente oculto */
-    flex-direction: column;
-    z-index: 1000;
-}
-/* Área de Mensajes */
-.messages-container {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 15px;
-    background-color: #f7f7f7;
-}
-.message {
-    padding: 8px 12px;
-    margin-bottom: 10px;
-    border-radius: 15px;
-    max-width: 80%;
-}
-.user {
-    background-color: #c00000;
-    color: white;
-    margin-left: auto;
-    border-bottom-right-radius: 5px;
-}
-.ai {
-    background-color: #eee;
-    color: #333;
-    margin-right: auto;
-    border-bottom-left-radius: 5px;
-}
-.ai.loading {
-    font-style: italic;
-    opacity: 0.7;
-}
-/* Área de Input */
-.input-area {
-    display: flex;
-    padding: 10px;
-    border-top: 1px solid #ddd;
-}
-#chat-input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-.input-area button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-}
-</style>
-<!-- Iconos FontAwesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-<style>
-    /* --- ESTILO ROJO Y NEGRO (SCAM LAD THEME) --- */
-    
-    /* Botón flotante */
-    .chat-toggler {
-        position: fixed; bottom: 30px; right: 30px;
-        height: 60px; width: 60px;
-        background: #b30000; /* Rojo Sangre */
-        border: 2px solid #000;
-        border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        color: white; cursor: pointer;
-        box-shadow: 0 0 15px rgba(179, 0, 0, 0.6);
-        transition: all 0.3s ease;
-        z-index: 9999; font-size: 24px;
-    }
-    .chat-toggler:hover { 
-        transform: scale(1.1); 
-        background: #000; 
-        color: #b30000;
-        border-color: #b30000;
-    }
-
-    /* Ventana del Chat */
-    .chat-container {
-        position: fixed; bottom: 100px; right: 30px;
-        width: 340px; height: 480px;
-        background: #121212; /* Fondo Negro casi total */
-        border: 1px solid #333;
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.8);
-        display: flex; flex-direction: column;
-        overflow: hidden; opacity: 0; pointer-events: none;
-        transform: translateY(20px);
-        transition: all 0.3s ease; z-index: 9999;
-        font-family: 'Courier New', monospace; /* Fuente tipo Hacker */
-    }
-    .chat-container.show-chat { opacity: 1; pointer-events: auto; transform: translateY(0); }
-
-    /* Cabecera */
-    .chat-header {
-        background: linear-gradient(90deg, #8a0000 0%, #300000 100%);
-        color: white; padding: 15px 20px;
-        display: flex; align-items: center; justify-content: space-between;
-        border-bottom: 2px solid #b30000;
-    }
-    .chat-header h4 { margin: 0; font-size: 16px; letter-spacing: 1px; }
-    
-    /* Área de mensajes */
-    .chat-box { 
-        flex: 1; padding: 15px; overflow-y: auto; 
-        background: #1a1a1a; 
-    }
-    
-    /* Burbujas */
-    .chat-msg { display: flex; margin-bottom: 12px; font-size: 13px; }
-    .chat-msg .content {
-        max-width: 75%; padding: 10px 14px; border-radius: 5px;
-        line-height: 1.4;
-    }
-    
-    /* Bot (Gris oscuro/Negro) */
-    .chat-msg.bot .content { 
-        background: #2d2d2d; color: #e0e0e0; 
-        border-left: 3px solid #b30000;
-    }
-    
-    /* Usuario (Rojo) */
-    .chat-msg.user { justify-content: flex-end; }
-    .chat-msg.user .content { 
-        background: #b30000; color: white; 
-        border-right: 3px solid #5a0000;
-    }
-
-    /* Input Area */
-    .chat-input {
-        padding: 10px; background: #000; border-top: 1px solid #333; display: flex; gap: 10px;
-    }
-    .chat-input input {
-        flex: 1; padding: 10px; 
-        background: #222; border: 1px solid #444; color: white;
-        border-radius: 5px; outline: none; font-family: 'Courier New', monospace;
-    }
-    .chat-input input:focus { border-color: #b30000; }
-    
-    .chat-input button {
-        background: #b30000; color: white; border: none; width: 40px; height: 40px;
-        border-radius: 5px; cursor: pointer; transition: 0.2s;
-    }
-    .chat-input button:hover { background: #ff0000; }
-
-    /* Scrollbar oscura */
-    .chat-box::-webkit-scrollbar { width: 6px; }
-    .chat-box::-webkit-scrollbar-track { background: #1a1a1a; }
-    .chat-box::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
-</style>
-
-<!-- HTML WIDGET -->
-<div class="chat-toggler" onclick="toggleChat()">
-    <i class="fa-solid fa-mask"></i> <!-- Icono de máscara/hacker -->
-</div>
-
-<div class="chat-container" id="chat-widget">
-    <div class="chat-header">
-        <div>
-            <h4><i class="fa-solid fa-shield-cat"></i> SYSTEM_BOT</h4>
-            <span style="font-size:10px; color:#ff6b6b;">● ONLINE</span>
-        </div>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="toggleChat()"></i>
+    <!-- CHATBOT WIDGET -->
+    <div class="chat-toggler" onclick="toggleChat()">
+        <i class="fa-solid fa-mask"></i>
     </div>
 
-    <div class="chat-box" id="chat-box">
-        <div class="chat-msg bot">
-            <div class="content">Sistema iniciado. Detectando amenazas... ¿En qué puedo ayudarte? </div>
+    <div class="chat-container" id="chat-widget">
+        <div class="chat-header">
+            <div>
+                <h4><i class="fa-solid fa-shield-cat"></i> SYSTEM_BOT</h4>
+                <span style="font-size:10px; color:#ff6b6b;">● ONLINE</span>
+            </div>
+            <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="toggleChat()"></i>
+        </div>
+
+        <div class="chat-box" id="chat-box">
+            <div class="chat-msg bot">
+                <div class="content">Sistema iniciado. Detectando amenazas... ¿En qué puedo ayudarte? </div>
+            </div>
+        </div>
+
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Ingresa comando o duda..." onkeypress="handleEnter(event)">
+            <button onclick="sendMessage()"><i class="fa-solid fa-terminal"></i></button>
         </div>
     </div>
 
-    <div class="chat-input">
-        <input type="text" id="user-input" placeholder="Ingresa comando o duda..." onkeypress="handleEnter(event)">
-        <button onclick="sendMessage()"><i class="fa-solid fa-terminal"></i></button>
-    </div>
-</div>
+    <script>
+        const API_URL = "/api-bot"; 
 
-<script>
-    // --- IMPORTANTE: CONFIGURACIÓN DE CONEXIÓN ---
-    // Si configuraste el Proxy HTTPS en Apache usa: "/api-bot"
-    // Si NO tienes HTTPS y usas la IP directa usa: "http://TU_IP:5000/preguntar"
-    const API_URL = "/api-bot"; 
+        const chatWidget = document.getElementById('chat-widget');
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
 
-    const chatWidget = document.getElementById('chat-widget');
-    const chatBox = document.getElementById('chat-box');
-    const userInput = document.getElementById('user-input');
-
-    function toggleChat() { chatWidget.classList.toggle('show-chat'); }
-    function handleEnter(e) { if (e.key === 'Enter') sendMessage(); }
-
-    async function sendMessage() {
-        const text = userInput.value.trim();
-        if (!text) return;
-
-        addMessage(text, 'user');
-        userInput.value = '';
-        
-        // Animación simple de carga
-        const loadingId = addMessage("Analizando...", 'bot', true);
-
-        try {
-            const res = await fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ mensaje: text })
-            });
-            const data = await res.json();
-            
-            // Eliminar mensaje de carga
-            document.getElementById(loadingId).remove();
-
-            // Limpiar formato Markdown
-            let cleanText = data.respuesta.replace(/\*\*/g, "").replace(/\*/g, "-");
-            addMessage(cleanText, 'bot');
-        } catch (error) {
-            document.getElementById(loadingId).remove();
-            addMessage("ERROR: Conexión fallida con el servidor neuronal.", 'bot');
+        function toggleChat() { 
+            chatWidget.classList.toggle('show-chat'); 
         }
-    }
+        
+        function handleEnter(e) { 
+            if (e.key === 'Enter') sendMessage(); 
+        }
 
-    function addMessage(text, sender, isLoading = false) {
-        const div = document.createElement('div');
-        const msgId = 'msg-' + Date.now();
-        div.id = msgId;
-        div.className = `chat-msg ${sender}`;
-        div.innerHTML = `<div class="content" ${isLoading ? 'style="font-style:italic; color:#777;"' : ''}>${text}</div>`;
-        chatBox.appendChild(div);
-        chatBox.scrollTop = chatBox.scrollHeight;
-        return msgId;
-    }
-</script>
+        async function sendMessage() {
+            const text = userInput.value.trim();
+            if (!text) return;
+
+            addMessage(text, 'user');
+            userInput.value = '';
+            
+            const loadingId = addMessage("Analizando...", 'bot', true);
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ mensaje: text })
+                });
+                const data = await res.json();
+                
+                document.getElementById(loadingId).remove();
+
+                let cleanText = data.respuesta.replace(/\*\*/g, "").replace(/\*/g, "-");
+                addMessage(cleanText, 'bot');
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                addMessage("ERROR: Conexión fallida con el servidor neuronal.", 'bot');
+            }
+        }
+
+        function addMessage(text, sender, isLoading = false) {
+            const div = document.createElement('div');
+            const msgId = 'msg-' + Date.now();
+            div.id = msgId;
+            div.className = `chat-msg ${sender}`;
+            div.innerHTML = `<div class="content" ${isLoading ? 'style="font-style:italic; color:#777;"' : ''}>${text}</div>`;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            return msgId;
+        }
+    </script>
+
+    <style>
+        /* Estilos del Chat Widget */
+        .chat-toggler {
+            position: fixed; bottom: 30px; right: 30px;
+            height: 60px; width: 60px;
+            background: #b30000;
+            border: 2px solid #000;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; cursor: pointer;
+            box-shadow: 0 0 15px rgba(179, 0, 0, 0.6);
+            transition: all 0.3s ease;
+            z-index: 9999; font-size: 24px;
+        }
+        .chat-toggler:hover { 
+            transform: scale(1.1); 
+            background: #000; 
+            color: #b30000;
+            border-color: #b30000;
+        }
+
+        .chat-container {
+            position: fixed; bottom: 100px; right: 30px;
+            width: 340px; height: 480px;
+            background: #121212;
+            border: 1px solid #333;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            display: flex; flex-direction: column;
+            overflow: hidden; opacity: 0; pointer-events: none;
+            transform: translateY(20px);
+            transition: all 0.3s ease; z-index: 9999;
+            font-family: 'Courier New', monospace;
+        }
+        .chat-container.show-chat { 
+            opacity: 1; 
+            pointer-events: auto; 
+            transform: translateY(0); 
+        }
+
+        .chat-header {
+            background: linear-gradient(90deg, #8a0000 0%, #300000 100%);
+            color: white; padding: 15px 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 2px solid #b30000;
+        }
+        .chat-header h4 { 
+            margin: 0; 
+            font-size: 16px; 
+            letter-spacing: 1px; 
+        }
+        
+        .chat-box { 
+            flex: 1; 
+            padding: 15px; 
+            overflow-y: auto; 
+            background: #1a1a1a; 
+        }
+        
+        .chat-msg { 
+            display: flex; 
+            margin-bottom: 12px; 
+            font-size: 13px; 
+        }
+        .chat-msg .content {
+            max-width: 75%; 
+            padding: 10px 14px; 
+            border-radius: 5px;
+            line-height: 1.4;
+        }
+        
+        .chat-msg.bot .content { 
+            background: #2d2d2d; 
+            color: #e0e0e0; 
+            border-left: 3px solid #b30000;
+        }
+        
+        .chat-msg.user { 
+            justify-content: flex-end; 
+        }
+        .chat-msg.user .content { 
+            background: #b30000; 
+            color: white; 
+            border-right: 3px solid #5a0000;
+        }
+
+        .chat-input {
+            padding: 10px; 
+            background: #000; 
+            border-top: 1px solid #333; 
+            display: flex; 
+            gap: 10px;
+        }
+        .chat-input input {
+            flex: 1; 
+            padding: 10px; 
+            background: #222; 
+            border: 1px solid #444; 
+            color: white;
+            border-radius: 5px; 
+            outline: none; 
+            font-family: 'Courier New', monospace;
+        }
+        .chat-input input:focus { 
+            border-color: #b30000; 
+        }
+        
+        .chat-input button {
+            background: #b30000; 
+            color: white; 
+            border: none; 
+            width: 40px; 
+            height: 40px;
+            border-radius: 5px; 
+            cursor: pointer; 
+            transition: 0.2s;
+        }
+        .chat-input button:hover { 
+            background: #ff0000; 
+        }
+
+        .chat-box::-webkit-scrollbar { 
+            width: 6px; 
+        }
+        .chat-box::-webkit-scrollbar-track { 
+            background: #1a1a1a; 
+        }
+        .chat-box::-webkit-scrollbar-thumb { 
+            background: #555; 
+            border-radius: 3px; 
+        }
+    </style>
+
+</body>
 </html>
