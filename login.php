@@ -180,6 +180,13 @@ if (isset($_POST['submit'])) {
             opacity: 0.6;
         }
 
+        .btn-back {
+            width: 100%; padding: 10px; margin-top: 12px;
+            background: transparent; color: #b30000; border: 1px solid #b30000;
+            border-radius: 5px; cursor: pointer; font-weight: 600;
+            text-transform: none; letter-spacing: 0.5px;
+        }
+        .btn-back:hover { background: rgba(179,0,0,0.06); }
         .links { text-align: center; margin-top: 20px; font-size: 13px; color: #888; }
         .links a { color: #b30000; text-decoration: none; font-weight: bold; }
         .links a:hover { text-decoration: underline; color: #ff3333; }
@@ -245,6 +252,7 @@ if (isset($_POST['submit'])) {
             <br><br>
             <a href="forgot-password.php" style="color: #666; font-weight: normal;">Olvidé mi contraseña</a>
         </div>
+        <button type="button" class="btn-back" onclick="location.href='index.php'">← Volver al Inicio</button>
     </div>
 
     <!-- CHATBOT -->

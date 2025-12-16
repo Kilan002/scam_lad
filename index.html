@@ -6,6 +6,107 @@
     <title>Scam LAD - Bienvenida</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Widget de Clima */
+        .weather-widget {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d0000 100%);
+            border: 2px solid #c00000;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(192, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .weather-widget h3 {
+            color: #c00000;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            text-shadow: 0 0 10px rgba(192, 0, 0, 0.5);
+        }
+
+        .weather-btn {
+            background: linear-gradient(135deg, #c00000 0%, #8a0000 100%);
+            color: white;
+            border: 2px solid #ff3333;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .weather-btn:hover {
+            background: linear-gradient(135deg, #ff0000 0%, #c00000 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .weather-btn:disabled {
+            background: #555;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #clima {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid #444;
+        }
+
+        #clima p {
+            color: #e0e0e0;
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        #clima strong {
+            color: #ff6666;
+        }
+
+        .weather-icon {
+            font-size: 3em;
+            margin: 15px 0;
+        }
+
+        .temp-display {
+            font-size: 2.5em;
+            color: #ff3333;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, #000000 0%, #1a0000 100%);
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 2px solid #c00000;
+            box-shadow: 0 3px 10px rgba(192, 0, 0, 0.3);
+        }
+
+        .navbar a {
+            color: #ff3333;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .navbar a:hover {
+            background: #c00000;
+            color: white;
+            transform: translateY(-2px);
+        }
+    </style>
 </head>
 <body>
 
@@ -14,9 +115,15 @@
         <div>
             <h1>Bienvenido al sistema de cámaras de seguridad inteligente</h1>
         </div>
-        <!-- Botón de inicio de sesión -->
         <a href="login.php" class="login-btn">Iniciar Sesión</a>
     </header>
+
+    <nav class="navbar">
+        <a href="index.html"><i class="fa-solid fa-home"></i> Inicio</a>
+        <a href="about.html"><i class="fa-solid fa-info-circle"></i> Acerca de</a>
+        <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contacto</a>
+        <a href="login.php"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
+    </nav>
 
     <main>
         <section id="introduccion">
@@ -58,6 +165,15 @@
                 <li>Garantizar la protección y privacidad de los datos almacenados.</li>
             </ul>
         </section>
+
+        <!-- Widget de Clima -->
+        <section class="weather-widget">
+            <h3><i class="fa-solid fa-cloud-sun"></i> Clima según tu ubicación</h3>
+            <button class="weather-btn" onclick="obtenerUbicacion()" id="weather-btn">
+                <i class="fa-solid fa-location-dot"></i> Obtener Clima Local
+            </button>
+            <div id="clima"></div>
+        </section>
     </main>
 
     <div class="link">
@@ -95,7 +211,86 @@
         </div>
     </div>
 
+    <!-- SCRIPTS -->
     <script>
+        // ============ CLIMA ============
+        function obtenerUbicacion() {
+            const btn = document.getElementById('weather-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Obteniendo ubicación...';
+
+            if (!navigator.geolocation) {
+                document.getElementById("clima").innerHTML = 
+                    '<p style="color:#ff6666;">❌ La geolocalización no es compatible con este navegador.</p>';
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-location-dot"></i> Obtener Clima Local';
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                posicion => {
+                    const lat = posicion.coords.latitude;
+                    const lon = posicion.coords.longitude;
+                    obtenerClima(lat, lon);
+                },
+                error => {
+                    let mensaje = "❌ No se pudo obtener la ubicación.";
+                    if (error.code === 1) mensaje = "⚠️ Permiso de ubicación denegado.";
+                    if (error.code === 2) mensaje = "❌ Ubicación no disponible.";
+                    if (error.code === 3) mensaje = "⏱️ Tiempo de espera agotado.";
+
+                    document.getElementById("clima").innerHTML = `<p style="color:#ff6666;">${mensaje}</p>`;
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-location-dot"></i> Obtener Clima Local';
+                }
+            );
+        }
+
+        function obtenerClima(lat, lon) {
+            const apiKey = "fcec7f131e40c55bccad4b44b8e9c911";
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=es`;
+
+            fetch(url)
+                .then(res => res.json())
+                .then(data => {
+                    // Iconos según el clima
+                    const weatherIcons = {
+                        'Clear': '☀️',
+                        'Clouds': '☁️',
+                        'Rain': '🌧️',
+                        'Drizzle': '🌦️',
+                        'Thunderstorm': '⛈️',
+                        'Snow': '❄️',
+                        'Mist': '🌫️',
+                        'Fog': '🌫️'
+                    };
+
+                    const icon = weatherIcons[data.weather[0].main] || '🌤️';
+                    
+                    document.getElementById("clima").innerHTML = `
+                        <div class="weather-icon">${icon}</div>
+                        <p><strong>📍 Ubicación:</strong> ${data.name}, ${data.sys.country}</p>
+                        <div class="temp-display">${Math.round(data.main.temp)}°C</div>
+                        <p><strong>🌡️ Sensación térmica:</strong> ${Math.round(data.main.feels_like)}°C</p>
+                        <p><strong>☁️ Clima:</strong> ${data.weather[0].description}</p>
+                        <p><strong>💧 Humedad:</strong> ${data.main.humidity}%</p>
+                        <p><strong>💨 Viento:</strong> ${data.wind.speed} m/s</p>
+                    `;
+                    
+                    const btn = document.getElementById('weather-btn');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-rotate"></i> Actualizar Clima';
+                })
+                .catch(() => {
+                    document.getElementById("clima").innerHTML = 
+                        '<p style="color:#ff6666;">❌ Error al consultar el clima. Intenta de nuevo.</p>';
+                    const btn = document.getElementById('weather-btn');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-location-dot"></i> Obtener Clima Local';
+                });
+        }
+
+        // ============ CHATBOT ============
         const API_URL = "/api-bot"; 
 
         const chatWidget = document.getElementById('chat-widget');
