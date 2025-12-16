@@ -4,36 +4,72 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
-require 'path/to/PHPMailer/src/Exception.php';
-require 'path/to/PHPMailer/src/PHPMailer.php';
-require 'path/to/PHPMailer/src/SMTP.php';
+// Modo depuración (activar solo en entorno de desarrollo)
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    $nombre = htmlspecialchars($_POST['nombre']);
-    $email = htmlspecialchars($_POST['email']);
-    $asunto = htmlspecialchars($_POST['asunto']);
-    $mensaje = htmlspecialchars($_POST['mensaje']);
+// Intentar carga por Composer si existe, si no buscar instalación manual
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require __DIR__ . '/vendor/autoload.php';
+} else {
+    $pmBase = __DIR__ . '/PHPMailer/src/';
+    $required = [
+        $pmBase . 'Exception.php',
+        $pmBase . 'PHPMailer.php',
+        $pmBase . 'SMTP.php'
+    ];
+
+    $missing = array_filter($required, function($f){ return !file_exists($f); });
+    if (!empty($missing)) {
+        http_response_code(500);
+        echo "Error 500 — PHPMailer no encontrado. Archivos faltantes:<br>" . implode('<br>', $missing);
+        exit();
+    }
+
+    require $pmBase . 'Exception.php';
+    require $pmBase . 'PHPMailer.php';
+    require $pmBase . 'SMTP.php';
+}
+
+// Solo procesar POST
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nombre = isset($_POST['nombre']) ? htmlspecialchars($_POST['nombre']) : '';
+    $email = isset($_POST['email']) ? filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) : false;
+    $asunto = isset($_POST['asunto']) ? htmlspecialchars($_POST['asunto']) : '(sin asunto)';
+    $mensaje = isset($_POST['mensaje']) ? htmlspecialchars($_POST['mensaje']) : '';
+
+    if (!$email) {
+        http_response_code(400);
+        echo "Email no válido.";
+        exit();
+    }
 
     $mail = new PHPMailer(true);
 
     try {
-        // Configuración del Servidor (AJUSTAR ESTO)
+        // Configuración del Servidor (AJUSTAR ESTO a tus credenciales SMTP)
+        $smtpHost = 'smtp.gmail.com';
+        $smtpUser = 'luis.prz.rosales@gmail.com';
+        $smtpPass = 'gnww axtk olzy gqxs';
+        $smtpPort = 465; // 587 para STARTTLS
+        $smtpSecure = PHPMailer::ENCRYPTION_SMTPS; // o PHPMailer::ENCRYPTION_STARTTLS
+
         $mail->isSMTP();
-        $mail->Host       = 'smtp.example.com';   // Ejem: smtp.gmail.com
+        $mail->Host       = $smtpHost;
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'tu_correo@example.com'; // Tu cuenta de correo SMTP
-        $mail->Password   = 'tu_contraseña';        // Tu contraseña de correo SMTP (o App Password)
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; // O ENCRYPTION_STARTTLS
-        $mail->Port       = 465; // O 587 si usas STARTTLS
-        
-        // Destinatarios
-        $mail->setFrom($email, $nombre);
-        $mail->addAddress('correo_de_destino@scamlad.com', 'Administrador Scam LAD'); // A dónde llega el mensaje
+        $mail->Username   = $smtpUser;
+        $mail->Password   = $smtpPass;
+        $mail->SMTPSecure = $smtpSecure;
+        $mail->Port       = $smtpPort;
+
+        // Destinatarios — usar la cuenta SMTP como From para evitar rechazos
+        $mail->setFrom($smtpUser, 'Contacto Web');
+        $mail->addAddress('correo_de_destino@scamlad.com', 'Administrador Scam LAD');
         $mail->addReplyTo($email, $nombre);
-        
+
         // Contenido
-        $mail->isHTML(false); // No usar HTML en el cuerpo
+        $mail->isHTML(false);
         $mail->Subject = "Contacto Web: " . $asunto;
         $mail->Body    = "De: $nombre ($email)\n\n" . $mensaje;
 
@@ -43,9 +79,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
 
     } catch (Exception $e) {
-        echo "El mensaje no pudo ser enviado. Mailer Error: {$mail->ErrorInfo}";
+        http_response_code(500);
+        echo "El mensaje no pudo ser enviado. Mailer Error: " . htmlspecialchars($mail->ErrorInfo ?: $e->getMessage());
         header("refresh:5;url=contact.html?status=error");
         exit();
     }
+} else {
+    // No método POST
+    header('Location: contact.html');
+    exit();
 }
 ?>
