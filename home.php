@@ -1,8 +1,15 @@
 <?php
-// Inicia la sesión
-session_start();
-// Si llega aquí, el usuario está autenticado.
-$user_name = $_SESSION['user_name'] ?? 'Usuario';
+// Incluir gestor de sesiones (verifica inactividad automáticamente)
+require_once 'session_manager.php';
+
+// Si llega aquí, el usuario está autenticado y activo
+$user_name = $_SESSION['SESSION_NAME'] ?? 'Usuario';
+$user_email = $_SESSION['SESSION_EMAIL'] ?? '';
+
+// Calcular tiempo restante de sesión
+$tiempo_restante = (TIEMPO_INACTIVIDAD - (time() - $_SESSION['LAST_ACTIVITY']));
+$minutos_restantes = floor($tiempo_restante / 60);
+$segundos_restantes = $tiempo_restante % 60;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -10,6 +17,7 @@ $user_name = $_SESSION['user_name'] ?? 'Usuario';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scam LAD - Panel de Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -47,6 +55,50 @@ $user_name = $_SESSION['user_name'] ?? 'Usuario';
             line-height: 1.6;
             margin-bottom: 15px;
             color: #e0e0e0;
+        }
+
+        /* Indicador de sesión */
+        .session-indicator {
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid #ff8800;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .session-indicator.warning {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #ff0000;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .session-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffaa00;
+        }
+
+        .session-indicator.warning .session-info {
+            color: #ff6666;
+        }
+
+        .session-timer {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #ffaa00;
+        }
+
+        .session-indicator.warning .session-timer {
+            color: #ff0000;
         }
 
         a {
@@ -272,8 +324,19 @@ $user_name = $_SESSION['user_name'] ?? 'Usuario';
 </head>
 <body>
     <div class="container">
+        <!-- Indicador de Sesión -->
+        <div class="session-indicator" id="session-indicator">
+            <div class="session-info">
+                <i class="fa-solid fa-clock"></i>
+                <span>Sesión activa - Auto-logout en:</span>
+            </div>
+            <div class="session-timer" id="session-timer">
+                <?php echo $minutos_restantes; ?>:<?php echo str_pad($segundos_restantes, 2, '0', STR_PAD_LEFT); ?>
+            </div>
+        </div>
+
         <h1>Bienvenido, <?php echo htmlspecialchars($user_name); ?></h1>
-        <p>Este es tu panel de control seguro.</p>
+        <p>Este es tu panel de control seguro. Email: <strong><?php echo htmlspecialchars($user_email); ?></strong></p>
         
         <div class="logo">TDM51</div>
         
@@ -297,6 +360,56 @@ $user_name = $_SESSION['user_name'] ?? 'Usuario';
     </div>
 
     <script>
+        // --- SISTEMA DE CONTROL DE INACTIVIDAD ---
+        let tiempoRestante = <?php echo $tiempo_restante; ?>;
+        const TIEMPO_ADVERTENCIA = 60; // Advertir cuando queden 60 segundos
+        
+        // Actualizar contador cada segundo
+        const timerInterval = setInterval(() => {
+            tiempoRestante--;
+            
+            const minutos = Math.floor(tiempoRestante / 60);
+            const segundos = tiempoRestante % 60;
+            
+            document.getElementById('session-timer').textContent = 
+                minutos + ':' + String(segundos).padStart(2, '0');
+            
+            // Advertencia cuando queda poco tiempo
+            if (tiempoRestante <= TIEMPO_ADVERTENCIA) {
+                document.getElementById('session-indicator').classList.add('warning');
+            }
+            
+            // Tiempo agotado - redirigir
+            if (tiempoRestante <= 0) {
+                clearInterval(timerInterval);
+                window.location.href = 'login.php?error=timeout&time=5';
+            }
+        }, 1000);
+        
+        // Resetear timer en cualquier actividad del usuario
+        function resetearTimer() {
+            // Hacer petición AJAX para actualizar LAST_ACTIVITY en el servidor
+            fetch('update_activity.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'}
+            }).then(() => {
+                tiempoRestante = <?php echo TIEMPO_INACTIVIDAD; ?>;
+                document.getElementById('session-indicator').classList.remove('warning');
+            });
+        }
+        
+        // Detectar actividad
+        ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'].forEach(event => {
+            document.addEventListener(event, () => {
+                // Throttle: solo actualizar cada 30 segundos
+                if (!window.lastActivity || Date.now() - window.lastActivity > 30000) {
+                    window.lastActivity = Date.now();
+                    resetearTimer();
+                }
+            }, true);
+        });
+
+        // --- CHATBOT ---
         function toggleChat() {
             const chatWindow = document.getElementById('chatbot-window');
             chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
