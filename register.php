@@ -148,7 +148,7 @@ if (isset($_POST['submit'])) {
         <div class="links">
             ¿Ya tienes acceso? <a href="login.php">INICIAR SESIÓN</a>
         </div>
-        <button type="button" class="btn-back" onclick="location.href='index.php'">← Volver al Inicio</button>
+        <button type="button" class="btn-back" onclick="location.href='index.html'">← Volver al Inicio</button>
     </div>
 
     <!-- CHATBOT -->

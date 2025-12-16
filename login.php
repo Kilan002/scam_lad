@@ -252,7 +252,7 @@ if (isset($_POST['submit'])) {
             <br><br>
             <a href="forgot-password.php" style="color: #666; font-weight: normal;">Olvidé mi contraseña</a>
         </div>
-        <button type="button" class="btn-back" onclick="location.href='index.php'">← Volver al Inicio</button>
+        <button type="button" class="btn-back" onclick="location.href='index.html'">← Volver al Inicio</button>
     </div>
 
     <!-- CHATBOT -->
