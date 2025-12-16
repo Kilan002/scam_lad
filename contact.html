@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Scam LAD</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #050505;
+            background-image: radial-gradient(#1a0000 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+
+        .container {
+            background: #121212;
+            width: 100%;
+            max-width: 600px;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            box-shadow: 0 0 30px rgba(179, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #8a0000, #ff0000, #8a0000);
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 10px;
+            font-family: 'Courier Prime', monospace;
+            letter-spacing: 2px;
+            font-size: 2em;
+            text-transform: uppercase;
+        }
+
+        h2 i {
+            color: #b30000;
+            margin-right: 10px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        label {
+            display: block;
+            color: #b30000;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        label i {
+            margin-right: 8px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: #1e1e1e;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 6px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: #b30000;
+            box-shadow: 0 0 10px rgba(179, 0, 0, 0.4);
+            background: #252525;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #b30000 0%, #8a0000 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(135deg, #ff0000 0%, #c00000 100%);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            transform: translateY(-2px);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        #status-message {
+            margin-top: 20px;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        #status-message.success {
+            background: rgba(46, 125, 50, 0.2);
+            color: #81c784;
+            border: 1px solid #4caf50;
+            display: block;
+        }
+
+        #status-message.error {
+            background: rgba(183, 28, 28, 0.2);
+            color: #ff8a80;
+            border: 1px solid #ef9a9a;
+            display: block;
+        }
+
+        .link {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .link a {
+            color: #b30000;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 25px;
+            border: 2px solid #b30000;
+            border-radius: 6px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .link a:hover {
+            background: #b30000;
+            color: white;
+            box-shadow: 0 0 15px rgba(179, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .link a i {
+            margin-right: 8px;
+        }
+
+        .info-box {
+            background: rgba(179, 0, 0, 0.1);
+            border: 1px solid #b30000;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .info-box i {
+            color: #b30000;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .info-box p {
+            color: #ccc;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+
+            button[type="submit"] {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2><i class="fa-solid fa-envelope"></i> Contáctanos</h2>
+        <p class="subtitle">Estamos aquí para ayudarte. Envíanos tu mensaje.</p>
+
+        <div class="info-box">
+            <i class="fa-solid fa-circle-info"></i>
+            <p>Responderemos tu mensaje en un plazo de 24-48 horas hábiles.</p>
+        </div>
+
+        <form action="send_mail.php" method="POST">
+            <div class="form-group">
+                <label for="nombre"><i class="fa-solid fa-user"></i> Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email"><i class="fa-solid fa-at"></i> Correo electrónico</label>
+                <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="asunto"><i class="fa-solid fa-tag"></i> Asunto</label>
+                <input type="text" id="asunto" name="asunto" placeholder="¿Sobre qué deseas escribir?" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mensaje"><i class="fa-solid fa-message"></i> Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="6" placeholder="Escribe tu mensaje aquí..." required></textarea>
+            </div>
+
+            <button type="submit"><i class="fa-solid fa-paper-plane"></i> Enviar Mensaje</button>
+        </form>
+
+        <div id="status-message"></div>
+    </div>
+
+    <div class="link">
+        <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Volver al inicio</a>
+    </div>
+
+    <script>
+        // Script para mostrar mensajes de estado si es necesario
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        const statusMessage = document.getElementById('status-message');
+
+        if (status === 'success') {
+            statusMessage.textContent = '✓ Mensaje enviado correctamente. Te responderemos pronto.';
+            statusMessage.className = 'success';
+        } else if (status === 'error') {
+            statusMessage.textContent = '✗ Error al enviar el mensaje. Por favor, intenta de nuevo.';
+            statusMessage.className = 'error';
+        }
+    </script>
+</body>
+</html>
