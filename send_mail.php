@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // Destinatarios — usar la cuenta SMTP como From para evitar rechazos
         $mail->setFrom($smtpUser, 'Contacto Web');
-        $mail->addAddress('correo_de_destino@scamlad.com', 'Administrador Scam LAD');
+        $mail->addAddress('luis.prz.rosales@gmail.com', 'Administrador Scam LAD');
         $mail->addReplyTo($email, $nombre);
 
         // Contenido
