@@ -1,4 +1,4 @@
-<php
+<?php
 session_start();
 if (isset($_SESSION['SESSION_EMAIL'])) {
     // Si ya está logueado, lo mandamos directo a home.php

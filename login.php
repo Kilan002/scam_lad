@@ -22,6 +22,13 @@ if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['blocked_until'] = 0;
 }
 
+// Definir tiempo actual y limpiar bloqueo si ya expiró
+$tiempo_actual = time();
+if (isset($_SESSION['blocked_until']) && $_SESSION['blocked_until'] > 0 && $tiempo_actual >= $_SESSION['blocked_until']) {
+    $_SESSION['login_attempts'] = 0;
+    $_SESSION['blocked_until'] = 0;
+}
+
 // Verificar si hay mensajes de error por URL
 if (isset($_GET['error'])) {
     if ($_GET['error'] === 'timeout') {
