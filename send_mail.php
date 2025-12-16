@@ -74,19 +74,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mail->Body    = "De: $nombre ($email)\n\n" . $mensaje;
 
         $mail->send();
-        echo "Mensaje enviado exitosamente. Redirigiendo...";
-        header("refresh:3;url=contact.html?status=success");
+        // Respuesta simple: texto plano y código 200
+        http_response_code(200);
+        echo "OK";
         exit();
 
     } catch (Exception $e) {
         http_response_code(500);
-        echo "El mensaje no pudo ser enviado. Mailer Error: " . htmlspecialchars($mail->ErrorInfo ?: $e->getMessage());
-        header("refresh:5;url=contact.html?status=error");
+        // Mensaje de error corto (útil para debugging rápido)
+        echo "ERROR: " . htmlspecialchars($mail->ErrorInfo ?: $e->getMessage());
         exit();
     }
 } else {
-    // No método POST
-    header('Location: contact.html');
+    // No método POST — mostrar mensaje breve
+    http_response_code(405);
+    echo "Method Not Allowed";
     exit();
 }
 ?>
